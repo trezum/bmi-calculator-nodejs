@@ -1,1 +1,1 @@
-# node-bmi-calculator
+# bmi-calculator
