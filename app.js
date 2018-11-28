@@ -28,4 +28,6 @@ app.get("/result", (req, res) => {
   
 });
 
-app.listen(8080); 
+var port = 8080;
+console.log("App is running on http://localhost:"+port)
+app.listen(port);
