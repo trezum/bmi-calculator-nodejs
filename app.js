@@ -16,16 +16,41 @@ app.get("/result", (req, res) => {
     var m = (parseInt(req.query.cm, 10) / 100);
     var kg = req.query.kg;
 
-    if(m == 0 || isNaN(m)){
+    var hip = (parseInt(req.query.hip, 10));
+    var waist = req.query.waist;
+
+    if(m == 0 || isNaN(m) || hip == 0 || isNaN(hip) || isNaN(waist) || isNaN(kg)){
         res.redirect("/");
     }else {
         var bmi = (kg / (m * m));
-        res.render("pages/result", {
-            bmi: bmi
-        });
-    }
+        var bmiCategory = "ERROR";
 
-  
+        if(bmi < 18.5)
+            bmiCategory = "Underweight"
+        else if (bmi < 24.9)
+            bmiCategory = "Healthy weight"
+        else if (bmi < 29.9)
+            bmiCategory = "Overweight"
+        else
+            bmiCategory = "Obese"
+
+        var hipToWaist = (hip / waist);
+
+        hipToWaistCategory = "ERROR";
+        if(hipToWaist < 0.9)
+            hipToWaistCategory = "Normal-weight"
+        else if(hipToWaist < 0.99)
+            hipToWaistCategory = "Over-weight"
+        else
+            hipToWaistCategory = "Obesity"
+
+        res.render("pages/result", {
+            bmi: bmi,
+            bmiCategory : bmiCategory,
+            hipToWaist : hipToWaist,
+            hipToWaistCategory : hipToWaistCategory
+        });
+    }  
 });
 
 var port = 8080;
